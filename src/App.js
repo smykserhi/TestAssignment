@@ -1,24 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import dataJson from "./static/data.json";
+import styled from "styled-components";
+import Menu from "./components/Menu";
+import Content from "./components/Content";
+import Background_one from "./static/backgrounds/slide_one.jpg";
+import Background_two from "./static/backgrounds/slide_two.jpg";
+import Background_three from "./static/backgrounds/slide_three.jpg";
+
+const MainContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  color: white;
+  background: url(${Background_one}) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+`;
+const ElementContainer = styled.div`
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+`;
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState({});
+  const backgrounds = [Background_one, Background_two, Background_three];
+
+  useEffect(() => {
+    console.log("in loading");
+    if (loading) {
+      // fetch(
+      //   "https://f.v1.n0.cdn.getcloudapp.com/items/3e1W2F0W1s2U2d3R2Z46/content.json"
+      // )
+      //   .then((res) => {
+      //     if (!res.ok) {
+      //       throw Error(res.statusText);
+      //     }
+      //     return res.json();
+      //   })
+      //   .then((res) => {
+      //     setLoading(false);
+      //     setData(res);
+      //   })
+      //   .catch((error) => console.error(error));
+      setLoading(false);
+      setData(dataJson);
+    }
+  }, [loading]);
+
+  console.log("data", data);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MainContainer>
+      <ElementContainer>
+        <Menu />
+        <Content />
+      </ElementContainer>
+    </MainContainer>
   );
 }
 
