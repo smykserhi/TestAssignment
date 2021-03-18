@@ -1,3 +1,4 @@
+import React from "react"
 import logo from "../../static/abc_logo.svg";
 import styled from "styled-components";
 
@@ -64,7 +65,7 @@ const Logo = styled.img`
     padding: 0.5rem;
 `;
 
-const Menu = () => {
+const Menu = ({menueOnClick,data}) => {
   return (
     <Container>
       <MenuContainer>
@@ -72,12 +73,16 @@ const Menu = () => {
           <Logo src={logo} alt="logo" />
         </LogoBox>
         <MenuElementsContainer>
-          <MenuElement>Industries</MenuElement>
-          <MenuElement>Services</MenuElement>
-          <MenuElement>About Us</MenuElement>
+          {data.map(el=>(
+            <MenuElement key={el.slug} id={el.slug} onClick={menueOnClick} >{el.title}</MenuElement>
+          ))}
+
+          {/* <MenuElement id="One" onClick={menueOnClick} >Industries</MenuElement>
+          <MenuElement id="Two" onClick={menueOnClick} >Services</MenuElement>
+          <MenuElement id="thre" onClick={menueOnClick}>About Us</MenuElement> */}
         </MenuElementsContainer>
       </MenuContainer>
-      <ContactUs>Contact US</ContactUs>
+      <ContactUs onClick={menueOnClick} id="contactUs">Contact US</ContactUs>
     </Container>
   );
 };

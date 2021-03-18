@@ -12,11 +12,12 @@ const MainContainer = styled.div`
   min-height: 100vh;
   max-width: 1920px;
   color: white;
-  background: url(${Background_one}) no-repeat center center fixed;
+  background: url(${props => props.background}) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  transition: all 0.3s;
 `;
 const ElementContainer = styled.div`
   width: 90%;
@@ -28,11 +29,13 @@ const ElementContainer = styled.div`
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0)
   const backgrounds = [Background_one, Background_two, Background_three];
 
+
   useEffect(() => {
-    console.log("in loading");
+    //console.log("in loading");
     if (loading) {
       // fetch(
       //   "https://f.v1.n0.cdn.getcloudapp.com/items/3e1W2F0W1s2U2d3R2Z46/content.json"
@@ -49,19 +52,44 @@ function App() {
       //   })
       //   .catch((error) => console.error(error));
       setLoading(false);
-      setData(dataJson);
+      setData(dataJson.pages);
     }
   }, [loading]);
 
   console.log("data", data);
+  const menueOnClick = (event) => {
+    console.log(event.target.id)
+    switch (event.target.id) {
+      case "industries":
+        setCurrentPage(0)
+        break
+      case "services":
+        setCurrentPage(1)
+        break
+      case "about-us":
+        setCurrentPage(2)
+        break
+      case "contactUs":
+        console.log("Clicked Contact US")
+        break
+      case "letsTalk":
+        console.log("Clicked Let's Talk")
+        break
+      default:
+    }
+
+  }
 
   return (
-    <MainContainer>
-      <ElementContainer>
-        <Menu />
-        <Content />
-      </ElementContainer>
-    </MainContainer>
+    <>
+      {!loading ? <MainContainer background={backgrounds[currentPage]}>
+        <ElementContainer>
+          <Menu data={data} menueOnClick={menueOnClick} />
+          <Content content={data[currentPage]} menueOnClick={menueOnClick} />
+        </ElementContainer>
+      </MainContainer> : ""}
+    </>
+
   );
 }
 

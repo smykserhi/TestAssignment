@@ -1,8 +1,8 @@
-import styled, {keyframes} from "styled-components";
-import {ArrowRight} from "@styled-icons/bootstrap/ArrowRight"
+import styled, { keyframes } from "styled-components";
+import { ArrowRight } from "@styled-icons/bootstrap/ArrowRight"
 import { useState } from "react";
 
-const ArrowAnime = keyframes `
+const ArrowAnime = keyframes`
 {
   0% {
     transform: translateX(0);
@@ -38,7 +38,7 @@ const ContentContainer = styled.div`
     border: green solid 1px;
     height: 70vh;
     min-height: 40rem;
-    justify-content: space-around;
+    justify-content: space-between;
     display: flex;
     flex-wrap: wrap;
     position: relative;
@@ -55,9 +55,10 @@ const Hadline = styled.h1`
     height: max-content;
     width: 30%;
     font-size: 5rem;
-    margin: 2rem 0;
+    margin: 4rem 2rem;
     @media (max-width: 968px){
      width: 80%;
+     margin: 2rem 0;
     }
     @media (max-width: 640px){
       width: 100%;
@@ -68,12 +69,13 @@ const Subhead = styled.h3`
     height: max-content;
     width: 25%;
     font-size: 2rem;
-    margin: 2rem 0;
+    margin: 4rem 2rem;
     @media (max-width: 1024px){
       width: 35%;
     }
     @media (max-width: 968px){
       width: 80%;
+      margin: 2rem 0;
      }
      @media (max-width: 640px){
       width: 100%;
@@ -127,23 +129,20 @@ const StyledArrowRight = styled(ArrowRight)`
     height: 200%;
     transform: translateY(-2px);
     margin-left: 2rem;
-    color: ${props=> props.active? "#fff": "#d5992e"};
-    animation: ${props=> props.active? ArrowAnime: ""}  2s both infinite;
+    color: ${props => props.active ? "#fff" : "#d5992e"};
+    animation: ${props => props.active ? ArrowAnime : ""}  2s both infinite;
 `
 
-const Content = () => {
+const Content = ({ menueOnClick ,content}) => {
   const [active, setActive] = useState(false)
   return (
     <ContentContainer>
-      <Hadline>Industries</Hadline>
-      <Subhead>
-        Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-        ut fermentum massa justo sit amet risus.
-      </Subhead>
-      <Button onMouseEnter ={()=> setActive(true) } onMouseLeave={()=>setActive(false)}>
-          <ButtonText>Vestibulum id ligula porta felis euismod semper.</ButtonText>
-          <ButtonArrow >LET'S TALK <StyledArrowRight active={active}/></ButtonArrow>
-          </Button>
+      <Hadline>{content.blocks[0].headline}</Hadline>
+      <Subhead>{content.blocks[0].subhead} </Subhead>
+      <Button id="letsTalk" onClick={menueOnClick} onMouseEnter={() => setActive(true)} onMouseLeave={() => setActive(false)}>
+        <ButtonText>{content.blocks[0].cta}</ButtonText>
+        <ButtonArrow >LET'S TALK <StyledArrowRight active={active} /></ButtonArrow>
+      </Button>
     </ContentContainer>
   );
 };
