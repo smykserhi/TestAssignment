@@ -9,7 +9,8 @@ import Background_three from "./static/backgrounds/slide_three.jpg";
 
 const MainContainer = styled.div`
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  max-width: 1920px;
   color: white;
   background: url(${Background_one}) no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -19,6 +20,7 @@ const MainContainer = styled.div`
 `;
 const ElementContainer = styled.div`
   width: 90%;
+  max-width: 1440px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
