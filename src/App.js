@@ -16,16 +16,15 @@ const MainContainer = styled.div`
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
-  transition: all 0.3s;
-`;
+  background-size: cover;  
+`
 const ElementContainer = styled.div`
   width: 90%;
   max-width: 1440px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-`;
+`
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -35,8 +34,7 @@ function App() {
 
 
   useEffect(() => {
-    //console.log("in loading");
-    if (loading) {
+    if (loading) { // Data loading from API
       // fetch(
       //   "https://f.v1.n0.cdn.getcloudapp.com/items/3e1W2F0W1s2U2d3R2Z46/content.json"
       // )
@@ -56,9 +54,8 @@ function App() {
     }
   }, [loading]);
 
-  console.log("data", data);
-  const menueOnClick = (event) => {
-    console.log(event.target.id)
+  //Main onClick event function
+  const menueOnClick = (event) => {    
     switch (event.target.id) {
       case "industries":
         setCurrentPage(0)
@@ -75,9 +72,12 @@ function App() {
       case "letsTalk":
         console.log("Clicked Let's Talk")
         break
+      case "logoButton":
+        console.log("Clicked logoButton")
+        break
       default:
+        console.log("Default click")
     }
-
   }
 
   return (
@@ -89,7 +89,6 @@ function App() {
         </ElementContainer>
       </MainContainer> : ""}
     </>
-
   );
 }
 
